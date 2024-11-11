@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Stage, Container, Sprite, useApp } from "@pixi/react";
 import * as PIXI from "pixi.js";
-
+// dfdfdf
 const ReactPixiWorld: React.FC = () => {
   const [treeTexture, setTreeTexture] = useState<PIXI.Texture | null>(null);
   // const [appView, setAppView] = useState<PIXI.ICanvas | null>(null);
