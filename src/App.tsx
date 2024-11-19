@@ -7,7 +7,7 @@ import { Application, BlurFilter, TextStyle } from "pixi.js";
 import { Stage, Container, Sprite, Text, AppProvider } from "@pixi/react";
 import FullscreenCanvas from "./components/FullscreenCanvas";
 import WorldContainer from "./components/WorldContainer";
-import ReactPixiWorld from "./components/ReactPixiWorld";
+import WorldCanvas from "./components/WorldCanvas";
 
 const App = () => {
   const stageRef = useRef<Stage | null>(null);
@@ -22,7 +22,7 @@ const App = () => {
 
   return (
     <AppProvider value={app}>
-      <ReactPixiWorld />
+      <WorldCanvas />
     </AppProvider>
     // <Stage
     //   ref={stageRef}
