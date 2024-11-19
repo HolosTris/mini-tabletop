@@ -9,6 +9,7 @@ import FullscreenCanvas from "./components/FullscreenCanvas";
 import WorldContainer from "./components/WorldContainer";
 import ReactPixiWorld from "./components/ReactPixiWorld";
 import GameField from "./components/ui/GameField";
+import WorldCanvas from "./components/WorldCanvas";
 
 const App = () => {
   const stageRef = useRef<Stage | null>(null);
@@ -25,6 +26,7 @@ const App = () => {
     <AppProvider value={app}>
       <GameField/>
       <ReactPixiWorld />
+      <WorldCanvas />
     </AppProvider>
     // <Stage
     //   ref={stageRef}
