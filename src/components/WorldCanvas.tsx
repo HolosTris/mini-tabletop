@@ -19,6 +19,8 @@ const WorldCanvas: React.FC = () => {
 
   const worldRef = useRef<PIXI.Container>(null);
   const objectRef = useRef<PIXI.Sprite>(null);
+  let object = objectRef.current;
+  // const [object, setObject] = useState<PIXI.Sprite>();
   const isDragging = useRef(false);
   const previousPosition = useRef({ x: 0, y: 0 });
 
@@ -31,17 +33,20 @@ const WorldCanvas: React.FC = () => {
       previousPosition.current = { x: e.clientX, y: e.clientY };
     } else {
       isDragging.current = true;
-      objectRef.current = e.target;
+      object = e.target as PIXI.Sprite;
+      // setObject(e.target as PIXI.Sprite);
       // previousPosition.current = { x: e.clientX, y: e.clientY };
     }
   };
 
   const onDragEnd = () => {
     isDragging.current = false;
+    object = null;
+    // setObject(undefined);
   };
 
   const onDragMove = (e: PIXI.FederatedPointerEvent) => {
-    if (isDragging.current && worldRef.current && e.currentTarget == e.target) {
+    if (isDragging.current && worldRef.current && !object) {
       const dx = e.clientX - previousPosition.current.x;
       const dy = e.clientY - previousPosition.current.y;
 
@@ -55,14 +60,8 @@ const WorldCanvas: React.FC = () => {
       //   undefined,
       //   worldRef.current.position
       // );
-    }
-    if (isDragging.current && objectRef.current) {
-      objectRef.current.parent.toLocal(
-        e.global,
-        undefined,
-        objectRef.current.position
-      );
-      console.log("move");
+    } else if (object) {
+      object.parent.toLocal(e.global, undefined, object.position);
     }
   };
 
@@ -166,7 +165,7 @@ const WorldCanvas: React.FC = () => {
         pointerdown={onDragStart}
         pointermove={onDragMove}
         pointerup={onDragEnd}
-        // pointerupoutside={onDragEnd}
+        pointerupoutside={onDragEnd}
         // pointerdown={handleMouseDown}
         // pointerup={handleMouseUp}
         // pointerupoutside={handleMouseUp}
