@@ -6,7 +6,7 @@ import "./App.css";
 import { Application, BlurFilter, TextStyle } from "pixi.js";
 import { Stage, Container, Sprite, Text, AppProvider } from "@pixi/react";
 import ReactPixiWorld from "./components/ReactPixiWorld";
-import GameField from "./components/ui/GameField";
+import MenuPanel from "./components/ui/MenuPanel";
 import WorldCanvas from "./components/WorldCanvas";
 
 const App = () => {
@@ -22,8 +22,8 @@ const App = () => {
 
   return (
     <AppProvider value={app}>
-      <GameField />
       <WorldCanvas />
+      <MenuPanel />
     </AppProvider>
     // <Stage
     //   ref={stageRef}
