@@ -1,0 +1,78 @@
+/* Основной контейнер панели */
+.panel {
+    padding: 10px;
+    background-color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+  }
+  /* Контейнер цветного меню */
+  .color-menu {
+    display: flex;
+    gap: 10px;
+  }
+  
+  /* Цветные квадраты */
+  .color-square {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  /* Анимация увеличения при наведении */
+  .color-square:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Контейнер игрового поля */
+  .game-field {
+    background-color: #2c3e50;
+    width: 100%;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: 2px dashed #fff;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    position: relative;
+  }
+  
+  /* Инструкция для пользователя */
+  .drop-instruction {
+    font-size: 18px;
+    color: #ccc;
+  }
+  
+  /* Контейнер для карт */
+  .cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  /* Стили карт мафии */
+  .mafia-card {
+    width: 60px;
+    height: 90px;
+    background-color: #ff4d4d;
+    color: white;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    margin: 5px;
+  }
+  

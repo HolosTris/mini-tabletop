@@ -5,7 +5,7 @@ import "./App.css";
 
 import { Application, BlurFilter, TextStyle } from "pixi.js";
 import { Stage, Container, Sprite, Text, AppProvider } from "@pixi/react";
-import WorldContainer from "./components/WorldContainer";
+import GameField from "./components/ui/GameField";
 import WorldCanvas from "./components/WorldCanvas";
 
 const App = () => {
@@ -21,6 +21,7 @@ const App = () => {
 
   return (
     <AppProvider value={app}>
+      <GameField />
       <WorldCanvas />
     </AppProvider>
     // <Stage
