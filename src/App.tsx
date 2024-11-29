@@ -5,7 +5,6 @@ import "./App.css";
 
 import { Application, BlurFilter, TextStyle } from "pixi.js";
 import { Stage, Container, Sprite, Text, AppProvider } from "@pixi/react";
-import FullscreenCanvas from "./components/FullscreenCanvas";
 import WorldContainer from "./components/WorldContainer";
 import WorldCanvas from "./components/WorldCanvas";
 
