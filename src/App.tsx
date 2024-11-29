@@ -5,8 +5,9 @@ import "./App.css";
 
 import { Application, BlurFilter, TextStyle } from "pixi.js";
 import { Stage, Container, Sprite, Text, AppProvider } from "@pixi/react";
-import GameField from "./components/ui/GameField";
+import MenuPanel from "./components/ui/MenuPanel";
 import WorldCanvas from "./components/WorldCanvas";
+import PlayerList from "./components/ui/PlayerList";
 
 const App = () => {
   const stageRef = useRef<Stage | null>(null);
@@ -19,10 +20,17 @@ const App = () => {
     resizeTo: window, // Automatically resize to window
   });
 
+  const [players, setPlayers] = useState([
+    { id: "1", name: "Player 1", avatarUrl: "https://example.com/avatar1.png" },
+    { id: "2", name: "Player 2", avatarUrl: "https://example.com/avatar2.png" },
+    { id: "3", name: "Player 3" }, // Без аватара
+  ]);
+
   return (
     <AppProvider value={app}>
-      <GameField />
+      <PlayerList players={players} />
       <WorldCanvas />
+      <MenuPanel />
     </AppProvider>
     // <Stage
     //   ref={stageRef}

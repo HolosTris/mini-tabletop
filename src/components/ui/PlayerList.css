@@ -1,0 +1,62 @@
+.player-list {
+    position: absolute;
+    top: 10px; /* Расположение сверху */
+    left: 10px; /* Расположение справа */
+    background-color: rgba(0, 0, 0, 0.8); /* Прозрачный тёмный фон */
+    padding: 10px;
+    border-radius: 8px;
+    color: white;
+    max-height: 300px; /* Максимальная высота для открытого списка */
+    overflow: hidden; /* Скрыть содержимое при сворачивании */
+    transition: max-height 0.3s ease; /* Анимация сворачивания/раскрытия */
+  }
+  
+  .player-list.collapsed {
+    max-height: 50px; /* Высота для свёрнутого состояния */
+  }
+  
+  .toggle-button {
+    display: block;
+    margin: 0 auto 10px auto;
+    background-color: #444;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .toggle-button:hover {
+    background-color: #666;
+  }
+  
+  .player-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 5px 0;
+  }
+  
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+  }
+  
+  .no-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+  }
+  
+  .player-name {
+    font-size: 16px;
+  }
+  
