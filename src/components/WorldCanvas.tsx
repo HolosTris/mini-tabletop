@@ -1,4 +1,11 @@
-import React, { PointerEvent, useEffect, useRef, useState } from "react";
+import React, {
+  DragEvent,
+  DragEventHandler,
+  PointerEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import {
   Stage,
   Container,
@@ -6,10 +13,12 @@ import {
   useApp,
   TilingSprite,
   Graphics,
+  _ReactPixi,
 } from "@pixi/react";
 import * as PIXI from "pixi.js";
 import "./WorldCanvas.css";
-import Object from "./Object";
+import Object, { IObject } from "./Object";
+import { ICard, IGame } from "../interfaces";
 
 const WorldCanvas: React.FC = () => {
   const [cardTexture, setCardTexture] = useState<PIXI.Texture | null>(null);
@@ -18,6 +27,8 @@ const WorldCanvas: React.FC = () => {
   // const [cursor, setCursor] = useState<string>("move");
 
   const worldRef = useRef<PIXI.Container>(null);
+  const [objects, setObjects] = useState<IObject[]>([]);
+
   const objectRef = useRef<PIXI.Sprite>(null);
   let object = objectRef.current;
   // const [object, setObject] = useState<PIXI.Sprite>();
@@ -93,17 +104,8 @@ const WorldCanvas: React.FC = () => {
         undefined,
         object.position
       );
-      if (
-        Math.abs((object.position.x % cellWidth) - cellWidth / 2) >
-          (cellWidth / 2) * (1 - snapping) &&
-        Math.abs((object.position.y % cellHeight) - cellHeight / 2) >
-          (cellHeight / 2) * (1 - snapping)
-      )
-        object.position = {
-          x: Math.round(object.position.x / cellWidth) * cellWidth,
-          y: Math.round(object.position.y / cellHeight) * cellHeight,
-        };
-      console.log(object.position);
+
+      object.position = snap(object.position);
     }
   };
 
@@ -178,16 +180,28 @@ const WorldCanvas: React.FC = () => {
 
   // Render 10,000 trees in random positions
   const worldSize = 5000;
-  const cards = Array.from({ length: 10 }).map((_, i) => (
-    <Object
-      key={i}
-      texture={cardTexture!}
-      x={Math.random() * worldSize}
-      y={Math.random() * worldSize}
+  const cards: IObject[] = Array.from({ length: 10 }).map((_, i) =>
+    // <Object
+    //   key={i}
+    //   texture={cardTexture!}
+    //   x={Math.random() * worldSize}
+    //   y={Math.random() * worldSize}
+    //   // scale={0.5}
+    //   anchor={0.5}
+    // />
+    ({
+      id: i,
+      texture: PIXI.Texture.from("src/assets/Card 6.png"),
+      x: Math.random() * worldSize,
+      y: Math.random() * worldSize,
       // scale={0.5}
-      anchor={0.5}
-    />
-  ));
+      anchor: 0.5,
+    })
+  );
+  // useEffect(() => {
+  //   setObjects((prevObjs) => [...prevObjs, ...cards]);
+  //   console.log("render");
+  // }, []);
   // const grid = Array.from({ length: 100 }).map((_, i) => (
   //   <TilingSprite
   //     key={i}
@@ -203,11 +217,61 @@ const WorldCanvas: React.FC = () => {
   //   setCursor("move");
   // }, []);
 
+  // utils
+
+  function snap(pos: PIXI.IPoint) {
+    if (
+      Math.abs((pos.x % cellWidth) - cellWidth / 2) >
+        (cellWidth / 2) * (1 - snapping) &&
+      Math.abs((pos.y % cellHeight) - cellHeight / 2) >
+        (cellHeight / 2) * (1 - snapping)
+    )
+      pos = {
+        x: Math.round(pos.x / cellWidth) * cellWidth,
+        y: Math.round(pos.y / cellHeight) * cellHeight,
+      };
+    console.log(pos);
+
+    return pos;
+  }
+
+  const onDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+  };
+
+  function onDrop(e: DragEvent) {
+    if (e.dataTransfer?.getData("value") == "mafia")
+      (async () => {
+        const mafiaCards: ICard[] = (
+          await ((await fetch("src/mafia.json")).json() as Promise<IGame>)
+        ).cards;
+
+        const startPosition = snap(
+          worldRef.current!.toLocal({ x: e.clientX, y: e.clientY })
+        );
+        const cardSet: IObject[] = [];
+
+        for (let i = 0; i <= 5; i++)
+          cardSet.push({
+            id: Date.now() + i,
+            x: startPosition.x + 40 * i,
+            y: startPosition.y,
+            texture: PIXI.Texture.from(mafiaCards[i].src[0]),
+            anchor: 0.5,
+          });
+
+        setObjects((prevObjs) => [...prevObjs, ...cardSet]);
+      })();
+    console.log(objects);
+  }
+
   return (
     <Stage
       height={window.innerHeight}
       width={window.innerWidth}
       options={{ backgroundColor: 0x111133, resizeTo: document.body }}
+      onDragOver={onDragOver}
+      onDrop={onDrop}
       // style={{ cursor: cursor }}
       // ref={stageRef}
       // onPointerDown={(e) => handleMouseDown(e)}
@@ -217,10 +281,11 @@ const WorldCanvas: React.FC = () => {
     >
       <Container
         ref={worldRef}
-        interactive={true}
+        interactive
         sortableChildren
         hitArea={new PIXI.Rectangle(-5000000, -5000000, 10000000, 10000000)}
-        scale={0.2}
+        scale={worldRef.current?.scale || 0.2}
+        position={worldRef.current?.position}
         pointerdown={onDragStart}
         pointermove={onDragMove}
         pointerup={onDragEnd}
@@ -231,7 +296,7 @@ const WorldCanvas: React.FC = () => {
         // pointermove={handleMouseMove}
         cursor="move"
       >
-        {/* <TilingSprite
+        {/* <TilingSprite // Board
           position={{ x: -5000000, y: -5000000 }}
           tilePosition={{ x: 0, y: 0 }}
           // texture={PIXI.Texture.from("src/assets/Card_Tile.png")}
@@ -242,7 +307,7 @@ const WorldCanvas: React.FC = () => {
           width={10000000}
           tileScale={{ x: 1, y: 1 }}
         /> */}
-        <TilingSprite
+        <TilingSprite // Grid
           position={{ x: -5000000, y: -5000000 }}
           tilePosition={{ x: 5000000 - 450 / 2, y: 5000000 - 700 / 2 }}
           texture={PIXI.Texture.from("src/assets/Card_Tile.png")}
@@ -253,7 +318,10 @@ const WorldCanvas: React.FC = () => {
           width={10000000}
           tileScale={{ x: 1, y: 1 }}
         />
-        {cardTexture && cards}
+        {objects.map((obj) => (
+          <Object key={obj.id} {...obj} />
+        ))}
+        {/* {cardTexture && cards} */}
         <Sprite
           texture={PIXI.Texture.from("src/assets/Card 10.png")}
           x={0}

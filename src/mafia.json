@@ -1,0 +1,162 @@
+{
+  "roles": [
+    {
+      "id": 1,
+      "name": "Mafia",
+      "description": "Устраняет игроков каждую ночь.",
+      "team": "мафия",
+      "abilities": ["устранить"],
+      "isActive": true
+    },
+    {
+      "id": 2,
+      "name": "Civilian",
+      "description": "Никаких особых способностей; цель - выжить и победить мафию.",
+      "team": "гражданские лица",
+      "abilities": [],
+      "isActive": true
+    },
+    {
+      "id": 3,
+      "name": "Doctor",
+      "description": "Может защищать игрока каждую ночь.",
+      "team": "гражданские лица",
+      "abilities": ["защищать"],
+      "isActive": true
+    },
+    {
+      "id": 4,
+      "name": "Sheriff",
+      "description": "Может проверять роль игрока каждую ночь.",
+      "team": "гражданские лица",
+      "abilities": ["исследовать"],
+      "isActive": true
+    },
+    {
+      "id": 5,
+      "name": "Maniac",
+      "description": "Уничтожает одного игрока каждую ночь, действуя независимо.",
+      "team": "нейтральный",
+      "abilities": ["устранить"],
+      "isActive": true
+    },
+    {
+      "id": 6,
+      "name": "Lover",
+      "description": "Выбирает партнера; если он умирает, то же самое происходит и с Любовником.",
+      "team": "нейтральный",
+      "abilities": ["Выберите партнера"],
+      "isActive": true
+    },
+    {
+      "id": 7,
+      "name": "Don",
+      "description": "Возглавляет команду мафиози и может вычислить шерифа.",
+      "team": "мафия",
+      "abilities": ["Обнаруживает Шерифа"],
+      "isActive": true
+    },
+    {
+      "id": 8,
+      "name": "Sergeant",
+      "description": "Помогает шерифу, также расследуя действия игроков.",
+      "team": "гражданские лица",
+      "abilities": ["исследовать"],
+      "isActive": true
+    },
+    {
+      "id": 9,
+      "name": "Lawyer",
+      "description": "Может защитить игрока от выбывания из игры один раз за игру.",
+      "team": "мафия",
+      "abilities": ["Защита от голосования"],
+      "isActive": true
+    },
+    {
+      "id": 10,
+      "name": "Suicidal",
+      "description": "Выигрывает, если они будут исключены в результате голосования.",
+      "team": "нейтральный",
+      "abilities": ["Ограничение потребления вина"],
+      "isActive": true
+    }
+  ],
+  "cards": [
+    {
+      "id": 1,
+      "roleId": 1,
+      "name": "Mafia Card",
+      "description": "Назначает игроку роль мафиози.",
+      "src": [
+        "src/assets/mafia_card.png",
+        "src/assets/mafia_card-1.png",
+        "src/assets/mafia_card-2.png"
+      ]
+    },
+    {
+      "id": 2,
+      "roleId": 2,
+      "name": "Citizen Card",
+      "description": "Назначает игроку роль гражданского лица.",
+      "src": [
+        "src/assets/citizen_card.png",
+        "src/assets/citizen_card-1.png",
+        "src/assets/citizen_card-2.png",
+        "src/assets/citizen_card-3.png"
+      ]
+    },
+    {
+      "id": 3,
+      "roleId": 3,
+      "name": "Doctor Card",
+      "description": "Назначает игроку роль Доктора.",
+      "src": ["src/assets/doctor_card.png"]
+    },
+    {
+      "id": 4,
+      "roleId": 4,
+      "name": "Sheriff Card",
+      "description": "Назначает игроку роль шерифа.",
+      "src": ["src/assets/sheriff_card.png"]
+    },
+    {
+      "id": 5,
+      "roleId": 5,
+      "name": "Maniac Card",
+      "description": "Назначает игроку роль Маньяка.",
+      "src": ["src/assets/maniac_card.png"]
+    },
+    {
+      "id": 6,
+      "roleId": 6,
+      "name": "Courtisan Card",
+      "description": "Назначает игроку роль Любовницы.",
+      "src": ["src/assets/courtesan_card.png"]
+    },
+    {
+      "id": 7,
+      "roleId": 7,
+      "name": "Don Card",
+      "description": "Назначает игроку роль Дона.",
+      "src": ["src/assets/don_card.png"]
+    },
+    {
+      "id": 8,
+      "roleId": 8,
+      "name": "Sergeant Card",
+      "description": "Назначает игроку роль сержанта."
+    },
+    {
+      "id": 9,
+      "roleId": 9,
+      "name": "Lawyer Card",
+      "description": "Назначает игроку роль адвоката."
+    },
+    {
+      "id": 10,
+      "roleId": 10,
+      "name": "Suicidal Card",
+      "description": "Назначает игроку роль самоубийцы."
+    }
+  ]
+}

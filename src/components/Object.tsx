@@ -3,7 +3,11 @@ import PropTypes from "prop-types";
 import { _ReactPixi, InteractionEvents, Sprite, useApp } from "@pixi/react";
 import * as PIXI from "pixi.js";
 
-function Object(props: _ReactPixi.ISprite) {
+export interface IObject extends _ReactPixi.ISprite {
+  id: number;
+}
+
+function Object(props: IObject) {
   const app = useApp();
 
   const objectRef = useRef<PIXI.Sprite>(null);
